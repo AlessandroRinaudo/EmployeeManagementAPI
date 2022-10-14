@@ -12,14 +12,14 @@ public class Employee {
     private String employeeName;
     private String employeeCity;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_spouse")
     private Spouse spouse;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Address> addresses;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Project> projects;
 
     public Employee() {
@@ -30,13 +30,6 @@ public class Employee {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeeCity = getEmployeeCity;
-    }
-
-    public Employee(int employeeId, String employeeName, String getEmployeeCity,Spouse spouse) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.employeeCity = getEmployeeCity;
-        this.spouse=spouse;
     }
 
     public int getEmployeeId() {
@@ -87,5 +80,13 @@ public class Employee {
     public void addProject(Project project) {
         this.projects.add(project);
         project.getEmployees().add(this);
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }
